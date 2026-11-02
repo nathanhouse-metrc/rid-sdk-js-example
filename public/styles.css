@@ -1,0 +1,217 @@
+/*
+ * Colours and fonts for the app. Every colour the UI uses is a token here, so
+ * the look can be changed in one place.
+ *
+ * The values match the Metrc design used in Metrc's shared prototypes (and the
+ * Python example app): a deep forest-green brand colour, warm off-white
+ * surfaces, Inter for text and IBM Plex Mono for codes, when installed.
+ */
+
+:root {
+  --primary: #26413A;         /* brand green: header bar, primary buttons, titles */
+  --primary-active: #2F5D4E;  /* primary button hover/pressed */
+  --accent: #149F69;          /* kelly green: header rule, focus highlights */
+  --background: #F3F5F2;      /* window background */
+  --surface: #FFFFFF;         /* cards and inputs */
+  --surface-soft: #ECEEEA;    /* unselected tabs */
+  --border: #DCE2D9;
+  --button-border: #BFC8BE;
+  --text: #16241D;
+  --text-muted: #5B6A5F;
+  --text-on-primary: #FFFFFF;
+  --text-on-primary-soft: #CFE3D6;
+  --mark-text: #2F5A45;
+  --success: #2E7D32;
+  --error: #B3261E;
+
+  --font-body: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-heading: "Inter SemiBold", "Inter", "Segoe UI Semibold", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", "Cascadia Mono", Consolas, Menlo, "Courier New", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--background);
+  color: var(--text);
+  font: 14px/1.4 var(--font-body);
+}
+
+/* -- header ---------------------------------------------------------------- */
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: var(--primary);
+  color: var(--text-on-primary);
+}
+.mark {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--mark-text);
+  font-weight: 700;
+  font-size: 12px;
+}
+.brand { font: 600 21px var(--font-heading); }
+.app-title { font: 16px var(--font-heading); color: var(--text-on-primary-soft); }
+.header-sub { margin-left: auto; font-size: 12px; }
+.rule { height: 3px; background: var(--accent); }
+
+/* -- tabs ------------------------------------------------------------------ */
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 8px 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.tab {
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  background: var(--surface-soft);
+  color: var(--text-muted);
+  font: inherit;
+  cursor: pointer;
+}
+.tab[aria-selected="true"] {
+  background: var(--surface);
+  color: var(--primary);
+  font-weight: 700;
+}
+.tab:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+main { flex: 1; min-height: 0; }
+
+/* Two columns: inputs (2 parts) and results (3 parts), as in the Python app. */
+.panel {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: 16px;
+  height: 100%;
+  padding: 16px;
+}
+.panel[hidden] { display: none; }
+.column { min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+
+@media (max-width: 860px) {
+  .panel { grid-template-columns: minmax(0, 1fr); height: auto; }
+  .column { overflow: visible; }
+  .results { min-height: 360px; }
+}
+
+/* -- cards ----------------------------------------------------------------- */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 16px;
+}
+.card h2 {
+  margin: 0;
+  font: 16px var(--font-heading);
+  color: var(--primary);
+}
+.hint { color: var(--text-muted); font-size: 12px; }
+.card > .hint { margin: 2px 0 0; }
+.endpoint { font-family: var(--font-mono); color: var(--text-muted); font-size: 12px; margin-bottom: 4px; }
+
+.form {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 8px 12px;
+  align-items: start;
+  margin-top: 10px;
+}
+.form > label { padding-top: 5px; }
+.form .control { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.row { display: flex; gap: 8px; }
+.row > input { flex: 1; min-width: 0; }
+
+input[type="text"], input[type="password"], textarea, select {
+  width: 100%;
+  padding: 5px 7px;
+  border: 1px solid var(--button-border);
+  border-radius: 2px;
+  background: var(--surface);
+  color: var(--text);
+  font: 13px var(--font-mono);
+}
+select { font-family: var(--font-body); }
+textarea { resize: vertical; white-space: pre; }
+input:focus, textarea:focus, select:focus { outline: 1px solid var(--accent); border-color: var(--accent); }
+.check { display: flex; align-items: center; gap: 6px; padding-top: 4px; }
+.radios { display: flex; flex-direction: column; gap: 2px; padding-top: 4px; }
+.radios label { display: flex; align-items: center; gap: 6px; }
+
+.buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+button.btn {
+  padding: 6px 12px;
+  border: 1px solid var(--button-border);
+  border-radius: 2px;
+  background: var(--surface);
+  color: var(--text);
+  font: 700 13px var(--font-body);
+  cursor: pointer;
+}
+button.btn:hover { background: var(--background); }
+button.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+button.btn.primary { background: var(--primary); border-color: var(--primary); color: var(--text-on-primary); }
+button.btn.primary:hover { background: var(--primary-active); }
+button.btn.danger { color: var(--error); border-color: var(--error); }
+button.btn:disabled { background: var(--border); border-color: var(--border); color: var(--text-muted); cursor: default; }
+.dirty { color: var(--text-muted); font-size: 12px; min-height: 1em; }
+
+/* -- results --------------------------------------------------------------- */
+
+.results {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 16px;
+}
+.results-top { display: flex; align-items: center; gap: 8px; }
+.results-top h2 { margin: 0 auto 0 0; font: 16px var(--font-heading); color: var(--primary); }
+.output {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  margin-top: 10px;
+  padding: 4px;
+  font: 13px var(--font-mono);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.output .ok, .output .error, .output .pending { font: 700 14px var(--font-body); margin-bottom: 14px; }
+.output .ok { color: var(--success); }
+.output .error { color: var(--error); }
+.output .pending { color: var(--text-muted); }
+.output .label { font: 13px var(--font-body); color: var(--text-muted); }
+.output .value { margin-bottom: 14px; }
+.output .url { font: 700 17px var(--font-mono); color: var(--primary); margin-bottom: 14px; }
+
+/* -- status bar ------------------------------------------------------------ */
+
+.status {
+  padding: 4px 12px;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 12px;
+}
+.status.failed { color: var(--error); }
