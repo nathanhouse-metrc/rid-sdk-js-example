@@ -1,0 +1,17 @@
+{
+  "name": "rid-sdk-js-example",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Retail ID SDK Explorer: an example GUI app showcasing the @metrc/retailid JavaScript SDK",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "@metrc/retailid": "file:../rid-sdk/javascript"
+  }
+}
